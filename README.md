@@ -27,3 +27,9 @@ A module can optionally choose to include a module.cs file which implements the 
         public string License { get { return ""; } }
         public string Dependencies { get { return ""; } }
     }
+
+# Example Screenshot
+
+A rendering of the sample module:
+
+![Module](https://github.com/oqtane/module.sample/blob/master/screenshot1.png?raw=true "Module")
