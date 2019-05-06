@@ -1,0 +1,28 @@
+﻿@using Oqtane.Modules
+@using Oqtane.Client.Modules.Controls
+@inherits ModuleBase
+My Name Is @ModuleState.ModuleDefinitionName
+<br /><br />
+The Following Image Was Embedded Into My Module Assembly From The /content Folder:
+<br /><br />
+<img src="oqtane.png" />
+<br /><br />
+I Can Also Include UI Components From Oqtane Such As The ActionLink:
+<br /><br />
+<ActionLink Action="Index" Text="Click Me!" />
+<br /><br />
+I Can Also Use Data Binding And Events:
+<br /><br />
+Current Count: @currentCount
+<br />
+<button class="btn btn-primary" onclick="@IncrementCount">Increment Count</button>
+<br /><br />
+
+@functions {
+    int currentCount = 0;
+
+    void IncrementCount()
+    {
+        currentCount++;
+    }
+}
