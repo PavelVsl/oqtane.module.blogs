@@ -14,7 +14,7 @@ The various module *.csproj files contain PostBuild events. The XCOPY commands f
     \<Exec Command="XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;**{Your Oqtane Framework Specific Path Here}**\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;**{Your Oqtane Framework Specific Path Here}**\Oqtane.Client\bin\Debug\netstandard2.0\dist\_framework\_bin\&quot; /S /Y" />
   \</Target>
 
-A module can optionally choose to include a module.cs file which implements the IModule interface. This interface is used by the framework to load any metadata which is applicable to the module.
+A module shuld include a module.cs file which implements the IModule interface. This interface is used by the framework to load any metadata which is applicable to the module.
 
     public class Module : IModule
     {
