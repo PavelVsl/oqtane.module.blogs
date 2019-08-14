@@ -1,11 +1,11 @@
 ﻿using Oqtane.Modules;
 
-namespace Oqtane.Module.Sample
+namespace Oqtane.Module.Blogs.Client
 {
     public class Module : IModule
     {
-        public string Name { get { return "Sample Module"; } }
-        public string Description { get { return "Sample Module"; } }
+        public string Name { get { return "Blog"; } }
+        public string Description { get { return "Blog"; } }
         public string Version { get { return "0.0.1"; } }
         public string Owner { get { return ""; } }
         public string Url { get { return ""; } }

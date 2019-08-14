@@ -1,0 +1,48 @@
+﻿@using System.Net.Http
+@using Oqtane.Modules
+@using Oqtane.Shared
+@using Oqtane.Services
+@using Oqtane.Models
+@inherits ModuleBase
+@inject IUriHelper UriHelper
+@inject HttpClient http
+@inject SiteState sitestate
+@inject ISettingService SettingService
+
+<table class="form-group">
+    <tr>
+        <td>
+            <label for="Setting" class="control-label">Display Blogs: </label>
+        </td>
+        <td>
+            <input type="text" class="form-control" @bind="maxblogs" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="Setting" class="control-label">Blog Summary Length: </label>
+        </td>
+        <td>
+            <input type="text" class="form-control" @bind="summarylength" />
+        </td>
+    </tr>
+</table>
+
+@code {
+    string maxblogs;
+    string summarylength;
+
+    protected override async Task OnInitAsync()
+    {
+        List<Setting> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+        maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
+        summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
+    }
+
+    public async Task UpdateSettings()
+    {
+        List<Setting> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+        await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId, "MaxBlogs", maxblogs);
+        await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId, "SummaryLength", summarylength);
+    }
+}

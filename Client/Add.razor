@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using System.Net.Http
+@using Oqtane.Modules
+@using Oqtane.Shared
+@using Oqtane.Module.Blogs.Models
+@using Oqtane.Module.Blogs.Services
+@inherits ModuleBase
+@inject IUriHelper UriHelper
+@inject HttpClient http
+@inject SiteState sitestate
+
+<table class="form-group">
+    <tr>
+        <td>
+            <label for="Title" class="control-label">Title: </label>
+        </td>
+        <td>
+            <input type="text" class="form-control" @bind="@title" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="Blog" class="control-label">Blog: </label>
+        </td>
+        <td>
+            <textarea class="form-control" @bind="@content" cols="40" rows="5"></textarea>
+        </td>
+    </tr>
+</table>
+<button type="button" class="btn btn-success" @onclick="@SaveBlog">Save</button>
+<NavLink class="btn btn-secondary" href="@NavigateUrl()">Cancel</NavLink>
+
+@code {
+    public override SecurityAccessLevel SecurityAccessLevel { get { return SecurityAccessLevel.Edit; } }
+
+    string title;
+    string content;
+
+    private async Task SaveBlog()
+    {
+        Blog blog = new Blog();
+        blog.ModuleId = ModuleState.ModuleId;
+        blog.Title = title;
+        blog.Content = content;
+        BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+        await BlogService.AddBlogAsync(blog);
+        UriHelper.NavigateTo(NavigateUrl());
+    }
+}
