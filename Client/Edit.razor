@@ -37,7 +37,7 @@
     string title;
     string content;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         id = Int32.Parse(PageState.QueryString["id"]);
         BlogService BlogService = new BlogService(http, sitestate, UriHelper);

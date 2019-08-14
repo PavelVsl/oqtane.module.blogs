@@ -32,7 +32,7 @@
     string maxblogs;
     string summarylength;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         List<Setting> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
         maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
