@@ -30,6 +30,6 @@ A module can optionally choose to include a module.cs file which implements the 
 
 # Example Screenshot
 
-A rendering of the sample module:
+Various user interface examples from the Blog module:
 
-![Module](https://github.com/oqtane/module.sample/blob/master/screenshot1.png?raw=true "Module")
+![Blog Module](https://github.com/oqtane/module.sample/blob/master/screenshot1.png?raw=true "Blog Module")
