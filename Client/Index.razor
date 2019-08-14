@@ -62,6 +62,7 @@ else
             }
         </div>
     }
+    <br />
 }
 
 @code {
@@ -70,7 +71,7 @@ else
     int maxblogs;
     int summarylength;
 
-    protected override async Task OnInitAsync()
+    protected override async Task OnInitializedAsync()
     {
         try
         {
