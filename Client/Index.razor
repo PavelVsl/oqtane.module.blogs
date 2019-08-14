@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using System.Net.Http
+@using Oqtane.Modules
+@using Oqtane.Shared
+@using Oqtane.Services
+@using Oqtane.Models
+@using Oqtane.Client.Modules.Controls
+@using Oqtane.Module.Blogs.Services
+@using Oqtane.Module.Blogs.Models
+@inherits ModuleBase
+@inject IUriHelper UriHelper
+@inject HttpClient http
+@inject SiteState sitestate
+@inject ISettingService SettingService
+
+@if (blogs == null)
+{
+    <p><em>@message</em></p>
+}
+else
+{
+    if (PageState.QueryString.ContainsKey("blogid"))
+    {
+        if (blogs.Count > 0)
+        {
+            <h2>@blogs[0].Title</h2>
+            <p>
+                @((MarkupString)@blogs[0].Content)
+                <br /><br /><b>Posted by</b> @blogs[0].CreatedBy <b>on</b> @blogs[0].CreatedOn.ToShortDateString()
+            </p>
+            <NavLink class="btn btn-secondary" href="@NavigateUrl()">View All Blogs</NavLink>
+        }
+    }
+    else
+    {
+        <div class="container">
+            <ActionLink Action="Add" Text="Add Blog" />
+            @foreach (Blog blog in blogs)
+            {
+                <div class="row">
+                    <div class="col">
+                        <br />
+                        <a href="@NavigateUrl(PageState.Page.Path, "blogid=" + blog.BlogId.ToString())">
+                            <h2>@blog.Title</h2>
+                        </a>
+                        <p>
+                            <b>Posted by</b> @blog.CreatedBy <b>on</b> @blog.CreatedOn.ToShortDateString()
+                            <br />
+                            @if (blog.Content.Length > summarylength)
+                            {
+                                @((MarkupString)@blog.Content.Substring(0, summarylength))
+                            }
+                            else
+                            {
+                                @((MarkupString)@blog.Content)
+                            }
+                        </p>
+                        <ActionLink Action="Edit" Parameters="@($"id=" + blog.BlogId.ToString())" />
+                        <ActionLink Action="Delete" Parameters="@($"id=" + blog.BlogId.ToString())" ButtonClass="btn-danger" />
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+
+@code {
+    string message = "Loading...";
+    List<Blog> blogs;
+    int maxblogs;
+    int summarylength;
+
+    protected override async Task OnInitAsync()
+    {
+        try
+        {
+            List<Setting> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+            maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "10"));
+            summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "100"));
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            if (PageState.QueryString.ContainsKey("blogid"))
+            {
+                blogs = new List<Blog>();
+                blogs.Add(await BlogService.GetBlogAsync(int.Parse(PageState.QueryString["blogid"])));
+            }
+            else
+            {
+                blogs = await BlogService.GetBlogsAsync(ModuleState.ModuleId);
+                blogs = blogs.OrderByDescending(item => item.CreatedOn).Take(maxblogs).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
+    }
+}
