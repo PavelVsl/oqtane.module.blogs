@@ -1,4 +1,4 @@
-# Oqtane Blogs Module
+# Oqtane Blog Module
 
 Oqtane allows developers to create third party modules which are rendered by the framework dynamically at run-time.
 
