@@ -11,6 +11,6 @@ namespace Oqtane.Module.Blogs.Client
         public string Url { get { return ""; } }
         public string Contact { get { return ""; } }
         public string License { get { return ""; } }
-        public string Dependencies { get { return ""; } }
+        public string Dependencies { get { return "Oqtane.Module.Blogs.Shared"; } }
     }
 }
