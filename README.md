@@ -32,4 +32,4 @@ A module shuld include a module.cs file which implements the IModule interface. 
 
 Various user interface examples from the Blog module:
 
-![Blog Module](https://github.com/oqtane/module.sample/blob/master/screenshot1.png?raw=true "Blog Module")
+![Blog Module](https://github.com/oqtane/oqtane.module.blogs/blob/master/screenshot1.png?raw=true "Blog Module")
