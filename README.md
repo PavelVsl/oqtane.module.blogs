@@ -30,6 +30,19 @@ A module shuld include a module.cs file which implements the IModule interface. 
 
 # Example Screenshot
 
-Various user interface examples from the Blog module:
+Main summary view of Blog module:
 
 ![Blog Module](https://github.com/oqtane/oqtane.module.blogs/blob/master/screenshot1.png?raw=true "Blog Module")
+
+Detailed view of individual blog:
+
+![Blog Module](https://github.com/oqtane/oqtane.module.blogs/blob/master/screenshot2.png?raw=true "Blog Module")
+
+Add new blog modal dialog:
+
+![Blog Module](https://github.com/oqtane/oqtane.module.blogs/blob/master/screenshot3.png?raw=true "Blog Module")
+
+Modify blog module settings:
+
+![Blog Module](https://github.com/oqtane/oqtane.module.blogs/blob/master/screenshot4.png?raw=true "Blog Module")
+
