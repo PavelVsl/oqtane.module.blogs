@@ -10,10 +10,10 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <Configurations>Debug;Release;Wasm</Configurations>
     <Version>0.0.1</Version>
-    <Product>Oqtane</Product>
+    <Product>Oqtane.Module.Blogs</Product>
     <Authors>Shaun Walker</Authors>
     <Company>.NET Foundation</Company>
-    <Description>Modular Application Framework for Blazor</Description>
+    <Description>Blog Module</Description>
     <Copyright>.NET Foundation</Copyright>
     <PackageProjectUrl>https://www.oqtane.org</PackageProjectUrl>
     <RepositoryUrl>https://github.com/oqtane</RepositoryUrl>
@@ -36,8 +36,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Server" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.0.0-preview8.19405.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview8.19405.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview8.19405.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0-preview8.19405.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0-preview8.19405.11" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,7 +54,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Server.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y" />
+    <Exec Command="XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Server.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Server.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Wasm\netcoreapp3.0\&quot; /S /Y" />
   </Target>
 
 </Project>

@@ -2,10 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <OutputType>Library</OutputType>
-    <IsPackable>true</IsPackable>
-    <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
-    <LangVersion>7.3</LangVersion>
     <RazorLangVersion>3.0</RazorLangVersion>
   </PropertyGroup>
 
@@ -13,14 +9,14 @@
     <Version>0.0.1</Version>
     <Authors>Shaun Walker</Authors>
     <Company>.NET Foundation</Company>
-    <Description>Oqtane Sample Module</Description>
-    <Product>Oqtane.Module.Sample</Product>
+    <Description>Blog Module</Description>
+    <Product>Oqtane.Module.Blogs</Product>
     <Copyright>.NET Foundation</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview8.19405.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview8.19405.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.0.0-preview8.19405.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.0.0-preview8.19405.7" />
   </ItemGroup>
 
@@ -38,7 +34,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Client\bin\Debug\netstandard2.0\dist\_framework\_bin\&quot; /S /Y" />
+    <Exec Command="XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Client\bin\Debug\netstandard2.0\dist\_framework\_bin\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Wasm\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Client.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Client\bin\Wasm\netstandard2.0\dist\_framework\_bin\&quot; /S /Y" />
   </Target>
 
 </Project>
