@@ -34,7 +34,7 @@ else
     else
     {
         <div class="container">
-            <ActionLink Action="Add" Text="Add Blog" />
+            <ActionLink Action="Add" Text="Add Blog" Style="float: right; margin: 10px;" />
             @foreach (Blog blog in blogs)
             {
                 <div class="row">
@@ -56,7 +56,7 @@ else
                             }
                         </p>
                         <ActionLink Action="Edit" Parameters="@($"id=" + blog.BlogId.ToString())" />
-                        <ActionLink Action="Delete" Parameters="@($"id=" + blog.BlogId.ToString())" ButtonClass="btn-danger" />
+                        <ActionLink Action="Delete" Parameters="@($"id=" + blog.BlogId.ToString())" Class="btn btn-danger" />
                     </div>
                 </div>
             }
