@@ -5,10 +5,10 @@ namespace Oqtane.Module.Blogs.Repository
 {
     public interface IBlogRepository
     {
-        IEnumerable<Blog> GetBlogs();
+        IEnumerable<Blog> GetBlogs(int ModuleId);
         Blog AddBlog(Blog Blog);
         Blog UpdateBlog(Blog Blog);
-        Blog GetBlog(int BlogId);
-        void DeleteBlog(int BlogId);
+        Blog GetBlog(int BlogId, int ModuleId);
+        void DeleteBlog(int BlogId, int ModuleId);
     }
 }

@@ -15,11 +15,11 @@ namespace Oqtane.Module.Blogs.Repository
             db = context;
         }
 
-        public IEnumerable<Blog> GetBlogs()
+        public IEnumerable<Blog> GetBlogs(int ModuleId)
         {
             try
             {
-                return db.Blog.ToList();
+                return db.Blog.Where(item => item.ModuleId == ModuleId);
             }
             catch
             {
@@ -55,12 +55,12 @@ namespace Oqtane.Module.Blogs.Repository
             }
         }
 
-        public Blog GetBlog(int BlogId)
+        public Blog GetBlog(int BlogId, int ModuleId)
         {
             try
             {
-                Blog Blog = db.Blog.Find(BlogId);
-                return Blog;
+                return db.Blog.Where(item => item.BlogId == BlogId)
+                    .Where(item => item.ModuleId == ModuleId).FirstOrDefault();
             }
             catch
             {
@@ -68,11 +68,12 @@ namespace Oqtane.Module.Blogs.Repository
             }
         }
 
-        public void DeleteBlog(int BlogId)
+        public void DeleteBlog(int BlogId, int ModuleId)
         {
             try
             {
-                Blog Blog = db.Blog.Find(BlogId);
+                Blog Blog = db.Blog.Where(item => item.BlogId == BlogId)
+                    .Where(item => item.ModuleId == ModuleId).FirstOrDefault();
                 db.Blog.Remove(Blog);
                 db.SaveChanges();
             }

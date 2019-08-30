@@ -29,31 +29,27 @@ namespace Oqtane.Module.Blogs.Services
 
         public async Task<List<Blog>> GetBlogsAsync(int ModuleId)
         {
-            List<Blog> blogs = await http.GetJsonAsync<List<Blog>>(apiurl);
-            blogs = blogs
-                .Where(item => item.ModuleId == ModuleId)
-                .ToList();
-            return blogs;
+            return await http.GetJsonAsync<List<Blog>>(apiurl + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
 
-        public async Task<Blog> GetBlogAsync(int BlogId)
+        public async Task<Blog> GetBlogAsync(int BlogId, int ModuleId)
         {
-            return await http.GetJsonAsync<Blog>(apiurl + "/" + BlogId.ToString());
+            return await http.GetJsonAsync<Blog>(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
 
         public async Task AddBlogAsync(Blog Blog)
         {
-            await http.PostJsonAsync(apiurl, Blog);
+            await http.PostJsonAsync(apiurl + "?entityid=" + Blog.ModuleId.ToString(), Blog);
         }
 
         public async Task UpdateBlogAsync(Blog Blog)
         {
-            await http.PutJsonAsync(apiurl + "/" + Blog.BlogId.ToString(), Blog);
+            await http.PutJsonAsync(apiurl + "/" + Blog.BlogId.ToString() + "?entityid=" + Blog.ModuleId.ToString(), Blog);
         }
 
-        public async Task DeleteBlogAsync(int BlogId)
+        public async Task DeleteBlogAsync(int BlogId, int ModuleId)
         {
-            await http.DeleteAsync(apiurl + "/" + BlogId.ToString());
+            await http.DeleteAsync(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
     }
 }

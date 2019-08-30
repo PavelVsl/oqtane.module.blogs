@@ -8,12 +8,12 @@ namespace Oqtane.Module.Blogs.Services
     {
         Task<List<Blog>> GetBlogsAsync(int ModuleId);
 
-        Task<Blog> GetBlogAsync(int BlogId);
+        Task<Blog> GetBlogAsync(int BlogId, int ModuleId);
 
         Task AddBlogAsync(Blog Blog);
 
         Task UpdateBlogAsync(Blog Blog);
 
-        Task DeleteBlogAsync(int BlogId);
+        Task DeleteBlogAsync(int BlogId, int ModuleId);
     }
 }

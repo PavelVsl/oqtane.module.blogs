@@ -13,11 +13,8 @@
 @inject SiteState sitestate
 @inject ISettingService SettingService
 
-@if (blogs == null)
-{
-    <p><em>@message</em></p>
-}
-else
+<ModuleMessage Message="@message" />
+@if (blogs != null)
 {
     if (PageState.QueryString.ContainsKey("blogid"))
     {
@@ -66,7 +63,7 @@ else
 }
 
 @code {
-    string message = "Loading...";
+    string message = "";
     List<Blog> blogs;
     int maxblogs;
     int summarylength;
@@ -93,7 +90,7 @@ else
             if (PageState.QueryString.ContainsKey("blogid"))
             {
                 blogs = new List<Blog>();
-                blogs.Add(await BlogService.GetBlogAsync(int.Parse(PageState.QueryString["blogid"])));
+                blogs.Add(await BlogService.GetBlogAsync(int.Parse(PageState.QueryString["blogid"]), ModuleState.ModuleId));
             }
             else
             {
