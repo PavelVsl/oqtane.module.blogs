@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
+@using Oqtane.Client.Modules.Controls
 @using System.Net.Http
 @using Oqtane.Modules
 @using Oqtane.Shared
@@ -9,6 +10,7 @@
 @inject HttpClient http
 @inject SiteState sitestate
 
+<ModuleMessage Message="@message" />
 <table class="form-group">
     <tr>
         <td>
@@ -29,36 +31,61 @@
 </table>
 <button type="button" class="btn btn-success" @onclick="@SaveBlog">Save</button>
 <NavLink class="btn btn-secondary" href="@NavigateUrl()">Cancel</NavLink>
+<br /><br />
+<AuditInfo CreatedBy="@createdby" CreatedOn="@createdon" ModifiedBy="@modifiedby" ModifiedOn="@modifiedon"></AuditInfo>
 
 @code {
     public override SecurityAccessLevel SecurityAccessLevel { get { return SecurityAccessLevel.Edit; } }
 
+    string message = "";
     int id;
     string title;
     string content;
+    string createdby;
+    DateTime createdon;
+    string modifiedby;
+    DateTime modifiedon;
 
     protected override async Task OnInitializedAsync()
     {
-        id = Int32.Parse(PageState.QueryString["id"]);
-        BlogService BlogService = new BlogService(http, sitestate, UriHelper);
-        Blog blog = await BlogService.GetBlogAsync(id);
-        if (blog != null)
+        try
         {
-            title = blog.Title;
-            content = blog.Content;
+            id = Int32.Parse(PageState.QueryString["id"]);
+            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
+            if (blog != null)
+            {
+                title = blog.Title;
+                content = blog.Content;
+                createdby = blog.CreatedBy;
+                createdon = blog.CreatedOn;
+                modifiedby = blog.ModifiedBy;
+                modifiedon = blog.ModifiedOn;
+            }
+        }
+        catch (Exception ex)
+        {
+            message = ex.Message;
         }
     }
 
     private async Task SaveBlog()
     {
-        BlogService BlogService = new BlogService(http, sitestate, UriHelper);
-        Blog blog = await BlogService.GetBlogAsync(id);
-        if (blog != null)
+        try
         {
-            blog.Title = title;
-            blog.Content = content;
-            await BlogService.UpdateBlogAsync(blog);
+            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
+            if (blog != null)
+            {
+                blog.Title = title;
+                blog.Content = content;
+                await BlogService.UpdateBlogAsync(blog);
+            }
+            UriHelper.NavigateTo(NavigateUrl());
         }
-        UriHelper.NavigateTo(NavigateUrl());
+        catch (Exception ex)
+        {
+            message = ex.Message;
+        }
     }
 }
