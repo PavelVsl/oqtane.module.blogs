@@ -1,16 +1,28 @@
 ﻿using Oqtane.Modules;
+using System.Collections.Generic;
 
 namespace Oqtane.Module.Blogs.Client
 {
     public class Module : IModule
     {
-        public string Name { get { return "Blog"; } }
-        public string Description { get { return "Blog"; } }
-        public string Version { get { return "0.0.1"; } }
-        public string Owner { get { return ""; } }
-        public string Url { get { return ""; } }
-        public string Contact { get { return ""; } }
-        public string License { get { return ""; } }
-        public string Dependencies { get { return "Oqtane.Module.Blogs.Shared"; } }
+        public Dictionary<string, string> Properties
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>
+                {
+                    { "Name", "Blog" },
+                    { "Description", "Blog Module" },
+                    { "Version", "0.0.1" },
+                    { "Owner", ".NET Foundation" },
+                    { "Url", "http://www.oqtane.org" },
+                    { "Contact", "support@oqtane.org" },
+                    { "License", "Copyright (c) 2019 .NET Foundation. Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the Software), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions. The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE." },
+                    { "Dependencies", "Oqtane.Module.Blogs.Shared" },
+                    { "Permissions", "View,Edit" } // optional
+                };
+                return properties;
+            }
+        }
     }
 }
