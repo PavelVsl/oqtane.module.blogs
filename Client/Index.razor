@@ -14,6 +14,7 @@
 @inject ISettingService SettingService
 
 <ModuleMessage Message="@message" />
+
 @if (blogs != null)
 {
     if (PageState.QueryString.ContainsKey("blogid"))
@@ -72,7 +73,7 @@
     {
         try
         {
-            List<Setting> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+            Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
             maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "10"));
             summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "100"));
         }
