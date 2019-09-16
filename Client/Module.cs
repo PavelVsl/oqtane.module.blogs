@@ -1,7 +1,7 @@
 ﻿using Oqtane.Modules;
 using System.Collections.Generic;
 
-namespace Oqtane.Module.Blogs.Client
+namespace Oqtane.Module.Blogs
 {
     public class Module : IModule
     {

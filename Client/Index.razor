@@ -1,14 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.AspNetCore.Components.Web
 @using System.Net.Http
 @using Oqtane.Modules
 @using Oqtane.Shared
 @using Oqtane.Services
-@using Oqtane.Models
-@using Oqtane.Client.Modules.Controls
+@using Oqtane.Modules.Controls
 @using Oqtane.Module.Blogs.Services
 @using Oqtane.Module.Blogs.Models
+@namespace Oqtane.Module.Blogs
 @inherits ModuleBase
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 @inject HttpClient http
 @inject SiteState sitestate
 @inject ISettingService SettingService
@@ -87,7 +88,7 @@
     {
         try
         {
-            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             if (PageState.QueryString.ContainsKey("blogid"))
             {
                 blogs = new List<Blog>();

@@ -1,12 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
-@using Oqtane.Client.Modules.Controls
+@using Microsoft.AspNetCore.Components.Web
+@using Oqtane.Modules.Controls
 @using System.Net.Http
 @using Oqtane.Modules
 @using Oqtane.Shared
 @using Oqtane.Module.Blogs.Models
 @using Oqtane.Module.Blogs.Services
+@namespace Oqtane.Module.Blogs
 @inherits ModuleBase
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 @inject HttpClient http
 @inject SiteState sitestate
 
@@ -48,9 +50,9 @@
             blog.ModuleId = ModuleState.ModuleId;
             blog.Title = title;
             blog.Content = content;
-            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             await BlogService.AddBlogAsync(blog);
-            UriHelper.NavigateTo(NavigateUrl());
+            NavigationManager.NavigateTo(NavigateUrl());
         }
         catch (Exception ex)
         {

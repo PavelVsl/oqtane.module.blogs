@@ -1,12 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Components.Routing
-@using Oqtane.Client.Modules.Controls
+@using Microsoft.AspNetCore.Components.Web
+@using Oqtane.Modules.Controls
 @using System.Net.Http
 @using Oqtane.Modules
 @using Oqtane.Shared
 @using Oqtane.Module.Blogs.Models
 @using Oqtane.Module.Blogs.Services
+@namespace Oqtane.Module.Blogs
 @inherits ModuleBase
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 @inject HttpClient http
 @inject SiteState sitestate
 
@@ -32,7 +34,8 @@
 </table>
 <button type="button" class="btn btn-success" @onclick="@SaveBlog">Save</button>
 <NavLink class="btn btn-secondary" href="@NavigateUrl()">Cancel</NavLink>
-<br /><br />
+<br />
+<br />
 <AuditInfo CreatedBy="@createdby" CreatedOn="@createdon" ModifiedBy="@modifiedby" ModifiedOn="@modifiedon"></AuditInfo>
 
 @code {
@@ -52,7 +55,7 @@
         try
         {
             id = Int32.Parse(PageState.QueryString["id"]);
-            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
             if (blog != null)
             {
@@ -74,7 +77,7 @@
     {
         try
         {
-            BlogService BlogService = new BlogService(http, sitestate, UriHelper);
+            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
             if (blog != null)
             {
@@ -82,7 +85,7 @@
                 blog.Content = content;
                 await BlogService.UpdateBlogAsync(blog);
             }
-            UriHelper.NavigateTo(NavigateUrl());
+            NavigationManager.NavigateTo(NavigateUrl());
         }
         catch (Exception ex)
         {
