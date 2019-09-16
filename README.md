@@ -16,7 +16,7 @@ The various module *.csproj files contain PostBuild events. The XCOPY commands f
 A module shuld include a module.cs file which implements the IModule interface. This interface is used by the framework to load any metadata which is applicable to the module.
 
    public class Module : IModule
-    {
+   {
         public Dictionary<string, string> Properties
         {
             get
