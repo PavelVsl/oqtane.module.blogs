@@ -4,8 +4,7 @@ Oqtane allows developers to create third party modules which are rendered by the
 
 Currently developers must use the following conventions when creating modules:
 
-- the name of the module folder must contain "*.Module.*" ( this is required because Blazor generates component namespaces based on folder structure )
-- the name of the project file must match the name of module folder
+- the name of the module assembly must contain "*.Module.*" 
 - the namespace of the optional Module.cs file ( which implements the IModule interface ) must match the module folder
 
 The various module *.csproj files contain PostBuild events. The XCOPY commands for these events need to be updated so that they copy the DLLs to the appropriate folder locations for your Oqtane installation:
@@ -16,17 +15,29 @@ The various module *.csproj files contain PostBuild events. The XCOPY commands f
 
 A module shuld include a module.cs file which implements the IModule interface. This interface is used by the framework to load any metadata which is applicable to the module.
 
-    public class Module : IModule
+   public class Module : IModule
     {
-        public string Name { get { return "Blog Module"; } }
-        public string Description { get { return "Blog Module"; } }
-        public string Version { get { return "0.0.1"; } }
-        public string Owner { get { return ""; } }
-        public string Url { get { return ""; } }
-        public string Contact { get { return ""; } }
-        public string License { get { return ""; } }
-        public string Dependencies { get { return ""; } }
+        public Dictionary<string, string> Properties
+        {
+            get
+            {
+                Dictionary<string, string> properties = new Dictionary<string, string>
+                {
+                    { "Name", "Blog" },
+                    { "Description", "Blog Module" },
+                    { "Version", "0.0.1" },
+                    { "Owner", ".NET Foundation" },
+                    { "Url", "http://www.oqtane.org" },
+                    { "Contact", "support@oqtane.org" },
+                    { "License", "Copyright (c) 2019 .NET Foundation." },
+                    { "Dependencies", "Oqtane.Module.Blogs.Shared" },
+                    { "Permissions", "View,Edit" } // optional
+                };
+                return properties;
+            }
+        }
     }
+
 
 # Example Screenshot
 
