@@ -3,7 +3,7 @@
 @using Oqtane.Modules
 @using Oqtane.Shared
 @using Oqtane.Services
-@using Oqtane.Models
+@namespace Oqtane.Module.Blogs
 @inherits ModuleBase
 @inject NavigationManager NavigationManager
 @inject HttpClient http
@@ -35,14 +35,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+        Dictionary<string, string>
+        settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
         maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
         summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
     }
 
     public async Task UpdateSettings()
     {
-        Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+        Dictionary<string, string>
+        settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
         SettingService.SetSetting(settings, "MaxBlogs", maxblogs);
         SettingService.SetSetting(settings, "SummaryLength", summarylength);
         await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId);

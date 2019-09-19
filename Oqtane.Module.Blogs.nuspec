@@ -10,8 +10,9 @@
     <copyright>.NET Foundation</copyright>
   </metadata>
   <files>
-    <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" target="lib\netstandard2.0" /> 
-    <file src="Server\bin\Release\netcoreapp3.0\Oqtane.Module.Blogs.Server.dll" target="lib\netcoreapp3.0" /> 
-    <file src="Shared\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Shared.dll" target="lib\netstandard2.0" /> 
+    <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" /> 
+    <file src="Server\bin\Release\netcoreapp3.0\Oqtane.Module.Blogs.Server.dll" /> 
+    <file src="Shared\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Shared.dll" /> 
+    <file src="wwwroot\**\*.*" target="wwwroot" /> 
   </files>
 </package>
