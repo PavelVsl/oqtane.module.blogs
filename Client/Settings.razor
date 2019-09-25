@@ -30,18 +30,32 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Dictionary<string, string>
-        settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-        maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
-        summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
+       try
+        {
+            Dictionary<string, string>
+            settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+            maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
+            summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
+        }
+        catch (Exception ex)
+        {
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+        }
     }
 
     public async Task UpdateSettings()
     {
-        Dictionary<string, string>
-        settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-        SettingService.SetSetting(settings, "MaxBlogs", maxblogs);
-        SettingService.SetSetting(settings, "SummaryLength", summarylength);
-        await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId);
+       try
+        {
+            Dictionary<string, string>
+            settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
+            SettingService.SetSetting(settings, "MaxBlogs", maxblogs);
+            SettingService.SetSetting(settings, "SummaryLength", summarylength);
+            await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId);
+        }
+        catch (Exception ex)
+        {
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+        }
     }
 }
