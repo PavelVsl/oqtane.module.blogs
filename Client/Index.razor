@@ -7,8 +7,6 @@
 @inject SiteState sitestate
 @inject ISettingService SettingService
 
-<ModuleMessage Message="@message" />
-
 @if (blogs != null)
 {
     if (PageState.QueryString.ContainsKey("blogid"))
@@ -58,7 +56,6 @@
 }
 
 @code {
-    string message = "";
     List<Blog> blogs;
     int maxblogs;
     int summarylength;
@@ -73,7 +70,7 @@
         }
         catch (Exception ex)
         {
-            message = ex.Message;
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
         }
     }
 
@@ -95,7 +92,7 @@
         }
         catch (Exception ex)
         {
-            message = ex.Message;
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
         }
     }
 }

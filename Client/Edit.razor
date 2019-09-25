@@ -6,8 +6,6 @@
 @inject HttpClient http
 @inject SiteState sitestate
 
-<ModuleMessage Message="@message" />
-
 <table class="form-group">
     <tr>
         <td>
@@ -35,7 +33,6 @@
 @code {
     public override SecurityAccessLevel SecurityAccessLevel { get { return SecurityAccessLevel.Edit; } }
 
-    string message = "";
     int id;
     string title;
     string content;
@@ -63,7 +60,7 @@
         }
         catch (Exception ex)
         {
-            message = ex.Message;
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
         }
     }
 
@@ -83,7 +80,7 @@
         }
         catch (Exception ex)
         {
-            message = ex.Message;
+            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
         }
     }
 }
