@@ -1,13 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Oqtane.Module.Blogs</id>
     <version>0.0.1</version>
     <authors>Shaun Walker</authors>
     <owners>Shaun Walker</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Blog Module</description>
+    <title>Oqtane Blog Module</title>
+    <description>A sample Blog module for the Oqtane framework</description>
     <copyright>.NET Foundation</copyright>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/oqtane/oqtane.module.blogs</projectUrl>
+    <iconUrl>https://www.oqtane.org/Portals/0/icon.jpg</iconUrl>
+    <tags>oqtane module</tags>
+    <releaseNotes>Initial Release</releaseNotes>
+    <summary>A sample Blog module for the Oqtane framework</summary>
   </metadata>
   <files>
     <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" /> 
