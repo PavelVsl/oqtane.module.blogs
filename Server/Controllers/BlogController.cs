@@ -43,7 +43,7 @@ namespace Oqtane.Module.Blogs.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, this.GetType().AssemblyQualifiedName, LogFunction.Read, ex, "Get Error {Error}", ex.Message);
+                logger.Log(LogLevel.Error, this, LogFunction.Read, ex, "Get Error {Error}", ex.Message);
                 throw;
             }
         }
@@ -64,7 +64,7 @@ namespace Oqtane.Module.Blogs.Controllers
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, this.GetType().AssemblyQualifiedName, LogFunction.Read, ex, "Get Error {Error}", ex.Message);
+                logger.Log(LogLevel.Error, this, LogFunction.Read, ex, "Get Error {Error}", ex.Message);
                 throw;
             }
         }
@@ -79,13 +79,13 @@ namespace Oqtane.Module.Blogs.Controllers
                 if (ModelState.IsValid && Blog.ModuleId == EntityId)
                 {
                     Blog = Blogs.AddBlog(Blog);
-                    logger.Log(LogLevel.Information, this.GetType().AssemblyQualifiedName, LogFunction.Create, "Blog Added {Blog}", Blog);
+                    logger.Log(LogLevel.Information, this, LogFunction.Create, "Blog Added {Blog}", Blog);
                 }
                 return Blog;
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, this.GetType().AssemblyQualifiedName, LogFunction.Create, ex, "Post Error {Error}", ex.Message);
+                logger.Log(LogLevel.Error, this, LogFunction.Create, ex, "Post Error {Error}", ex.Message);
                 throw;
             }
         }
@@ -100,13 +100,13 @@ namespace Oqtane.Module.Blogs.Controllers
                 if (ModelState.IsValid && Blog.ModuleId == EntityId)
                 {
                     Blog = Blogs.UpdateBlog(Blog);
-                    logger.Log(LogLevel.Information, this.GetType().AssemblyQualifiedName, LogFunction.Update, "Blog Updated {Blog}", Blog);
+                    logger.Log(LogLevel.Information, this, LogFunction.Update, "Blog Updated {Blog}", Blog);
                 }
                 return Blog;
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, this.GetType().AssemblyQualifiedName, LogFunction.Update, ex, "Put Error {Error}", ex.Message);
+                logger.Log(LogLevel.Error, this, LogFunction.Update, ex, "Put Error {Error}", ex.Message);
                 throw;
             }
         }
@@ -121,12 +121,12 @@ namespace Oqtane.Module.Blogs.Controllers
                 if (moduleid == EntityId)
                 {
                     Blogs.DeleteBlog(id, moduleid);
-                    logger.Log(LogLevel.Information, this.GetType().AssemblyQualifiedName, LogFunction.Delete, "Blog Deleted {BlogId}", id);
+                    logger.Log(LogLevel.Information, this, LogFunction.Delete, "Blog Deleted {BlogId}", id);
                 }
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Error, this.GetType().AssemblyQualifiedName, LogFunction.Delete, ex, "Delete Error {Error}", ex.Message);
+                logger.Log(LogLevel.Error, this, LogFunction.Delete, ex, "Delete Error {Error}", ex.Message);
                 throw;
             }
         }
