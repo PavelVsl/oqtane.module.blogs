@@ -8,7 +8,7 @@
 <table class="form-group">
     <tr>
         <td>
-            <label for="Setting" class="control-label">Display Blogs: </label>
+            <label for="Setting" class="control-label">Maximum Blog Entries: </label>
         </td>
         <td>
             <input type="text" class="form-control" @bind="maxblogs" />
@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>
-            <label for="Setting" class="control-label">Blog Summary Length: </label>
+            <label for="Setting" class="control-label">Summary Length (Characters): </label>
         </td>
         <td>
             <input type="text" class="form-control" @bind="summarylength" />
@@ -35,7 +35,7 @@
             Dictionary<string, string>
             settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
             maxblogs = SettingService.GetSetting(settings, "MaxBogs", "20");
-            summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
+            summarylength = SettingService.GetSetting(settings, "SummaryLength", "500");
         }
         catch (Exception ex)
         {
