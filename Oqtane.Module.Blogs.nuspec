@@ -15,11 +15,14 @@
     <tags>oqtane module</tags>
     <releaseNotes>Initial Release</releaseNotes>
     <summary>A sample Blog module for the Oqtane framework</summary>
+    <dependencies>
+      <dependency id="Oqtane.Framework" version="0.0.1" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" /> 
-    <file src="Server\bin\Release\netcoreapp3.0\Oqtane.Module.Blogs.Server.dll" /> 
-    <file src="Shared\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Shared.dll" /> 
+    <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" target="lib" /> 
+    <file src="Server\bin\Release\netcoreapp3.0\Oqtane.Module.Blogs.Server.dll" target="lib" /> 
+    <file src="Shared\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Shared.dll" target="lib" /> 
     <file src="wwwroot\**\*.*" target="wwwroot" /> 
   </files>
 </package>

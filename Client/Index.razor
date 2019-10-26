@@ -13,12 +13,14 @@
     {
         if (blogs.Count > 0)
         {
-            <h2>@blogs[0].Title</h2>
             <p>
-                @((MarkupString)@blogs[0].Content)
-                <br /><br /><b>Posted by</b> @blogs[0].CreatedBy <b>on</b> @blogs[0].CreatedOn.ToShortDateString()
+                <h2>@blogs[0].Title</h2>
+                <p>
+                    @((MarkupString)@blogs[0].Content)
+                    <br /><br /><b>Posted by</b> @blogs[0].CreatedBy <b>on</b> @blogs[0].CreatedOn.ToShortDateString()
+                </p>
+                <NavLink class="btn btn-secondary" href="@NavigateUrl()">View All Blogs</NavLink>
             </p>
-            <NavLink class="btn btn-secondary" href="@NavigateUrl()">View All Blogs</NavLink>
         }
     }
     else
@@ -57,25 +59,14 @@
     int maxblogs;
     int summarylength;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         try
         {
             Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
             maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "20"));
-            summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "100"));
-        }
-        catch (Exception ex)
-        {
-            await logger.LogError(ex, "Error Loading Blogs {Error}", ex.Message);
-            ModuleInstance.AddModuleMessage("Error Loading Blogs", MessageType.Error);
-        }
-    }
+            summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "500"));
 
-    protected override async Task OnParametersSetAsync()
-    {
-        try
-        {
             BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             if (PageState.QueryString.ContainsKey("blogid"))
             {
