@@ -32,8 +32,9 @@
 
 @code {
     public override SecurityAccessLevel SecurityAccessLevel { get { return SecurityAccessLevel.Edit; } }
+    public override string Actions { get { return "Add,Edit"; } }
 
-    int id;
+    int id = -1;
     string title;
     string content;
     string createdby;
@@ -45,22 +46,31 @@
     {
         try
         {
-            id = Int32.Parse(PageState.QueryString["id"]);
-            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
-            Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
-            if (blog != null)
+            if (PageState.QueryString.ContainsKey("id"))
             {
-                title = blog.Title;
-                content = blog.Content;
-                createdby = blog.CreatedBy;
-                createdon = blog.CreatedOn;
-                modifiedby = blog.ModifiedBy;
-                modifiedon = blog.ModifiedOn;
+                id = Int32.Parse(PageState.QueryString["id"]);
+                BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
+                Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
+                if (blog != null)
+                {
+                    title = blog.Title;
+                    content = blog.Content;
+                    createdby = blog.CreatedBy;
+                    createdon = blog.CreatedOn;
+                    modifiedby = blog.ModifiedBy;
+                    modifiedon = blog.ModifiedOn;
+                }
+                else
+                {
+                    await logger.LogError("Error Loading Blog {BlogId} {Error}", id);
+                    ModuleInstance.AddModuleMessage("Error Loading Blog", MessageType.Error);
+                }
             }
         }
         catch (Exception ex)
         {
-            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+            await logger.LogError(ex, "Error Loading Blog {BlogId} {Error}", id, ex.Message);
+            ModuleInstance.AddModuleMessage("Error Loading Blog", MessageType.Error);
         }
     }
 
@@ -69,18 +79,33 @@
         try
         {
             BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
-            Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
-            if (blog != null)
+            if (id == -1)
             {
+                Blog blog = new Blog();
+                blog.ModuleId = ModuleState.ModuleId;
                 blog.Title = title;
                 blog.Content = content;
-                await BlogService.UpdateBlogAsync(blog);
+                await BlogService.AddBlogAsync(blog);
+                await logger.LogInformation("Blog Added {Blog}", blog);
+                NavigationManager.NavigateTo(NavigateUrl());
             }
-            NavigationManager.NavigateTo(NavigateUrl());
+            else
+            {
+                Blog blog = await BlogService.GetBlogAsync(id, ModuleState.ModuleId);
+                if (blog != null)
+                {
+                    blog.Title = title;
+                    blog.Content = content;
+                    await BlogService.UpdateBlogAsync(blog);
+                    await logger.LogInformation("Blog Updated {Blog}", blog);
+                    NavigationManager.NavigateTo(NavigateUrl());
+                }
+            }
         }
         catch (Exception ex)
         {
-            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+            await logger.LogError(ex, "Error Saving Blog {BlogId} {Error}", id, ex.Message);
+            ModuleInstance.AddModuleMessage("Error Saving Blog", MessageType.Error);
         }
     }
 }

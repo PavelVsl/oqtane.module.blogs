@@ -9,7 +9,7 @@
 
 @if (blogs != null)
 {
-    if (PageState.QueryString.ContainsKey("blogid"))
+    if (PageState.QueryString.ContainsKey("id"))
     {
         if (blogs.Count > 0)
         {
@@ -23,34 +23,31 @@
     }
     else
     {
-        <div class="container">
-            <ActionLink Action="Add" Text="Add Blog" />
-            @foreach (Blog blog in blogs)
-            {
-                <div class="row">
-                    <div class="col">
+        <ActionLink Action="Add" Security="SecurityAccessLevel.Edit" Text="Add Blog" />
+        <Pager Format="Grid" Items="@blogs">
+            <Row>
+                <div class="col">
+                    <br />
+                    <a href="@NavigateUrl(PageState.Page.Path, "id=" + context.BlogId.ToString())">
+                        <h2>@context.Title</h2>
+                    </a>
+                    <p>
+                        <b>Posted by</b> @context.CreatedBy <b>on</b> @context.CreatedOn.ToShortDateString()
                         <br />
-                        <a href="@NavigateUrl(PageState.Page.Path, "blogid=" + blog.BlogId.ToString())">
-                            <h2>@blog.Title</h2>
-                        </a>
-                        <p>
-                            <b>Posted by</b> @blog.CreatedBy <b>on</b> @blog.CreatedOn.ToShortDateString()
-                            <br />
-                            @if (blog.Content.Length > summarylength)
-                            {
-                                @((MarkupString)@blog.Content.Substring(0, summarylength))
-                            }
-                            else
-                            {
-                                @((MarkupString)@blog.Content)
-                            }
-                        </p>
-                        <ActionLink Action="Edit" Parameters="@($"id=" + blog.BlogId.ToString())" />
-                        <ActionLink Action="Delete" Parameters="@($"id=" + blog.BlogId.ToString())" Class="btn btn-danger" />
-                    </div>
+                        @if (context.Content.Length > summarylength)
+                        {
+                            @((MarkupString)@context.Content.Substring(0, summarylength))
+                        }
+                        else
+                        {
+                            @((MarkupString)@context.Content)
+                        }
+                    </p>
+                    <ActionLink Action="Edit" Parameters="@($"id=" + context.BlogId.ToString())" />
+                    <ActionDialog Header="Delete Blog" Message="@("Are You Sure You Wish To Delete This Blog?")" Action="Delete" Security="SecurityAccessLevel.Edit" Class="btn btn-danger" OnClick="@(async () => await DeleteBlog(context.BlogId))" />
                 </div>
-            }
-        </div>
+            </Row>
+        </Pager>
     }
     <br />
 }
@@ -65,12 +62,13 @@
         try
         {
             Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-            maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "10"));
+            maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "20"));
             summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "100"));
         }
         catch (Exception ex)
         {
-            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+            await logger.LogError(ex, "Error Loading Blogs {Error}", ex.Message);
+            ModuleInstance.AddModuleMessage("Error Loading Blogs", MessageType.Error);
         }
     }
 
@@ -92,7 +90,24 @@
         }
         catch (Exception ex)
         {
-            ModuleInstance.AddModuleMessage(ex.Message, MessageType.Error);
+            await logger.LogError(ex, "Error Loading Blogs {Error}", ex.Message);
+            ModuleInstance.AddModuleMessage("Error Loading Blogs", MessageType.Error);
+        }
+    }
+
+    private async Task DeleteBlog(int id)
+    {
+        try
+        {
+            BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
+            await BlogService.DeleteBlogAsync(id, ModuleState.ModuleId);
+            await logger.LogInformation("Blog Deleted {BlogId}", id);
+            NavigationManager.NavigateTo(NavigateUrl());
+        }
+        catch (Exception ex)
+        {
+            await logger.LogError(ex, "Error Deleting Blog {BlogId} {Error}", id, ex.Message);
+            ModuleInstance.AddModuleMessage("Error Deleting Blog", MessageType.Error);
         }
     }
 }

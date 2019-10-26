@@ -21,8 +21,4 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command=":: XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Shared.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Debug\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;:: XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Shared.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Client\bin\Debug\netstandard2.0\dist\_framework\_bin\&quot; /S /Y&#xD;&#xA;:: XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Shared.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\bin\Wasm\netcoreapp3.0\&quot; /S /Y&#xD;&#xA;:: XCOPY &quot;$(TargetDir)Oqtane.Module.Blogs.Shared.dll&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Client\bin\Wasm\netstandard2.0\dist\_framework\_bin\&quot; /S /Y" />
-  </Target>
-
 </Project>

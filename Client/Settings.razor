@@ -34,7 +34,7 @@
         {
             Dictionary<string, string>
             settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-            maxblogs = SettingService.GetSetting(settings, "MaxBogs", "10");
+            maxblogs = SettingService.GetSetting(settings, "MaxBogs", "20");
             summarylength = SettingService.GetSetting(settings, "SummaryLength", "100");
         }
         catch (Exception ex)
