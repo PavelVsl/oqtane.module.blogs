@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Client\Oqtane.Module.Blogs.Client.csproj" />
+    <ProjectReference Include="..\Server\Oqtane.Module.Blogs.Server.csproj" />
+    <ProjectReference Include="..\Shared\Oqtane.Module.Blogs.Shared.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;  nuget.exe pack $(SolutionDir)Oqtane.Module.Blogs.nuspec &#xD;&#xA;  XCOPY &quot;*.nupkg&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\wwwroot\Modules&quot; /Y&#xD;&#xA;)" />
+  </Target>
+
+</Project>
