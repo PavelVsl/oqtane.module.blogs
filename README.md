@@ -9,7 +9,7 @@ Currently developers must use the following conventions when creating modules:
 
 A module should include a module.cs file which implements the IModule interface. This interface is used by the framework to load any metadata which is applicable to the module. See https://github.com/oqtane/oqtane.module.blogs/blob/master/Client/Module.cs 
 
-In order to deploy a module
+In order to deploy/install a module you should modify the folder path in the https://github.com/oqtane/oqtane.module.blogs/blob/master/Package/pack.cmd file to match the location on your system where the Oqtane framework is installed. Then when you execute this file it will create a Nuget package and copy it to the specified location where the framework will automatically install it upon startup.
 
 # Example Screenshot
 
