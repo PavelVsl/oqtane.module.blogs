@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;  nuget.exe pack $(SolutionDir)Oqtane.Module.Blogs.nuspec &#xD;&#xA;  XCOPY &quot;*.nupkg&quot; &quot;C:\Siliqon\Oqtane\sbwalker.oqtane.framework\Oqtane.Server\wwwroot\Modules&quot; /Y&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;  nuget.exe pack $(SolutionDir)Oqtane.Module.Blogs.nuspec &#xD;&#xA;  XCOPY &quot;*.nupkg&quot; &quot;C:\Users\Shaun.Walker\source\repos\sbwalker\oqtane.framework\Oqtane.Server\wwwroot\Modules&quot; /Y&#xD;&#xA;)" />
   </Target>
 
 </Project>
