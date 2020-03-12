@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Oqtane.Module.Blogs</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <authors>Shaun Walker</authors>
     <owners>Shaun Walker</owners>
     <title>Oqtane Blog Module</title>
@@ -20,9 +20,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Client\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Client.dll" target="lib" /> 
-    <file src="Server\bin\Release\netcoreapp3.0\Oqtane.Module.Blogs.Server.dll" target="lib" /> 
-    <file src="Shared\bin\Release\netstandard2.0\Oqtane.Module.Blogs.Shared.dll" target="lib" /> 
+    <file src="Client\bin\Release\netstandard2.1\Oqtane.Module.Blogs.Client.dll" target="lib" /> 
+    <file src="Server\bin\Release\netcoreapp3.1\Oqtane.Module.Blogs.Server.dll" target="lib" /> 
+    <file src="Shared\bin\Release\netstandard2.1\Oqtane.Module.Blogs.Shared.dll" target="lib" /> 
     <file src="wwwroot\**\*.*" target="wwwroot" /> 
   </files>
 </package>
