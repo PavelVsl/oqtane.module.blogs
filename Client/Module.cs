@@ -13,7 +13,7 @@ namespace Oqtane.Module.Blogs
                 {
                     { "Name", "Blog" },
                     { "Description", "Blog Module" },
-                    { "Version", "0.0.1" },
+                    { "Version", "0.0.3" },
                     { "Owner", ".NET Foundation" },
                     { "Url", "http://www.oqtane.org" },
                     { "Contact", "support@oqtane.org" },
