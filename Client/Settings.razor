@@ -5,37 +5,37 @@
 @inject SiteState sitestate
 @inject ISettingService SettingService
 
-<table class="form-group">
+<table class="table table-borderless">
     <tr>
         <td>
-            <label for="Setting" class="control-label">Maximum Blog Entries: </label>
+            <Label For="maxblogs" HelpText="Enter the maximum number of blogs to display on a page">Maximum Blog Entries: </Label>
         </td>
         <td>
-            <input type="text" class="form-control" @bind="maxblogs" />
+            <input id="maxblogs" type="text" class="form-control" @bind="_maxblogs" />
         </td>
     </tr>
     <tr>
         <td>
-            <label for="Setting" class="control-label">Summary Length (Characters): </label>
+            <Label For="summarylength" HelpText="Enter the maximum length of the blog to display in the summary view">Summary Length (Characters): </Label>
         </td>
         <td>
-            <input type="text" class="form-control" @bind="summarylength" />
+            <input id="summarylength" type="text" class="form-control" @bind="_summarylength" />
         </td>
     </tr>
 </table>
 
 @code {
-    string maxblogs;
-    string summarylength;
+    private string _maxblogs;
+    private string _summarylength;
 
     protected override async Task OnInitializedAsync()
     {
-       try
+        try
         {
             Dictionary<string, string>
             settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-            maxblogs = SettingService.GetSetting(settings, "MaxBogs", "20");
-            summarylength = SettingService.GetSetting(settings, "SummaryLength", "500");
+            _maxblogs = SettingService.GetSetting(settings, "MaxBogs", "20");
+            _summarylength = SettingService.GetSetting(settings, "SummaryLength", "500");
         }
         catch (Exception ex)
         {
@@ -45,12 +45,12 @@
 
     public async Task UpdateSettings()
     {
-       try
+        try
         {
             Dictionary<string, string>
             settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-            SettingService.SetSetting(settings, "MaxBlogs", maxblogs);
-            SettingService.SetSetting(settings, "SummaryLength", summarylength);
+            SettingService.SetSetting(settings, "MaxBlogs", _maxblogs);
+            SettingService.SetSetting(settings, "SummaryLength", _summarylength);
             await SettingService.UpdateModuleSettingsAsync(settings, ModuleState.ModuleId);
         }
         catch (Exception ex)

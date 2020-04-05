@@ -7,17 +7,17 @@
 @inject SiteState sitestate
 @inject ISettingService SettingService
 
-@if (blogs != null)
+@if (_blogs != null)
 {
     if (PageState.QueryString.ContainsKey("id"))
     {
-        if (blogs.Count > 0)
+        if (_blogs.Count > 0)
         {
             <p>
-                <h2>@blogs[0].Title</h2>
+                <h2>@_blogs[0].Title</h2>
                 <p>
-                    @((MarkupString)@blogs[0].Content)
-                    <br /><br /><b>Posted by</b> @blogs[0].CreatedBy <b>on</b> @blogs[0].CreatedOn.ToShortDateString()
+                    @((MarkupString)@_blogs[0].Content)
+                    <br /><br /><b>Posted by</b> @_blogs[0].CreatedBy <b>on</b> @_blogs[0].CreatedOn.ToShortDateString()
                 </p>
                 <NavLink class="btn btn-secondary" href="@NavigateUrl()">View All Blogs</NavLink>
             </p>
@@ -26,7 +26,7 @@
     else
     {
         <ActionLink Action="Add" Security="SecurityAccessLevel.Edit" Text="Add Blog" />
-        <Pager Format="Grid" Items="@blogs">
+        <Pager Format="Grid" Items="@_blogs">
             <Row>
                 <div class="col">
                     <br />
@@ -36,9 +36,9 @@
                     <p>
                         <b>Posted by</b> @context.CreatedBy <b>on</b> @context.CreatedOn.ToShortDateString()
                         <br />
-                        @if (context.Content.Length > summarylength)
+                        @if (context.Content.Length > _summarylength)
                         {
-                            @((MarkupString)@context.Content.Substring(0, summarylength))
+                            @((MarkupString)@context.Content.Substring(0, _summarylength))
                         }
                         else
                         {
@@ -55,28 +55,28 @@
 }
 
 @code {
-    List<Blog> blogs;
-    int maxblogs;
-    int summarylength;
+    private List<Blog> _blogs;
+    private int _maxblogs;
+    private int _summarylength;
 
     protected override async Task OnParametersSetAsync()
     {
         try
         {
             Dictionary<string, string> settings = await SettingService.GetModuleSettingsAsync(ModuleState.ModuleId);
-            maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "20"));
-            summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "500"));
+            _maxblogs = int.Parse(SettingService.GetSetting(settings, "MaxBogs", "20"));
+            _summarylength = int.Parse(SettingService.GetSetting(settings, "SummaryLength", "500"));
 
             BlogService BlogService = new BlogService(http, sitestate, NavigationManager);
             if (PageState.QueryString.ContainsKey("blogid"))
             {
-                blogs = new List<Blog>();
-                blogs.Add(await BlogService.GetBlogAsync(int.Parse(PageState.QueryString["blogid"]), ModuleState.ModuleId));
+                _blogs = new List<Blog>();
+                _blogs.Add(await BlogService.GetBlogAsync(int.Parse(PageState.QueryString["blogid"]), ModuleState.ModuleId));
             }
             else
             {
-                blogs = await BlogService.GetBlogsAsync(ModuleState.ModuleId);
-                blogs = blogs.OrderByDescending(item => item.CreatedOn).Take(maxblogs).ToList();
+                _blogs = await BlogService.GetBlogsAsync(ModuleState.ModuleId);
+                _blogs = _blogs.OrderByDescending(item => item.CreatedOn).Take(_maxblogs).ToList();
             }
         }
         catch (Exception ex)
