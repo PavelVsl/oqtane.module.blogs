@@ -3,7 +3,7 @@ using Oqtane.Modules;
 
 namespace Oqtane.Module.Blogs
 {
-    public class Module : IModule
+    public class ModuleInfo : IModule
     {
         public ModuleDefinition ModuleDefinition => new ModuleDefinition
         {
