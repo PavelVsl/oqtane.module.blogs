@@ -9,7 +9,7 @@ namespace Oqtane.Module.Blogs
         {
             Name = "Blog",
             Description = "Allows you to publish and manage blog entries",
-            Version = "0.0.1",
+            Version = "0.0.4",
             Owner = ".NET Foundation",
             Url = "http://www.oqtane.org",
             Contact = "support@oqtane.org",
