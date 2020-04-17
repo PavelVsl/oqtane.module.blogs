@@ -8,7 +8,7 @@
       https://dotnet.myget.org/F/blazor-dev/api/v3/index.json;
     </RestoreAdditionalProjectSources>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <Version>0.0.1</Version>
+    <Version>0.0.6</Version>
     <Product>Oqtane.Module.Blogs</Product>
     <Authors>Shaun Walker</Authors>
     <Company>.NET Foundation</Company>
