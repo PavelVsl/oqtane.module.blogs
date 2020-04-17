@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components;
@@ -11,13 +10,11 @@ namespace Oqtane.Module.Blogs.Services
 {
     public class BlogService : ServiceBase, IBlogService
     {
-        private readonly HttpClient http;
         private readonly SiteState sitestate;
         private readonly NavigationManager NavigationManager;
 
-        public BlogService(HttpClient http, SiteState sitestate, NavigationManager NavigationManager)
+        public BlogService(HttpClient http, SiteState sitestate, NavigationManager NavigationManager) : base(http)
         {
-            this.http = http;
             this.sitestate = sitestate;
             this.NavigationManager = NavigationManager;
         }
@@ -29,27 +26,27 @@ namespace Oqtane.Module.Blogs.Services
 
         public async Task<List<Blog>> GetBlogsAsync(int ModuleId)
         {
-            return await http.GetJsonAsync<List<Blog>>(apiurl + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
+            return await GetJsonAsync<List<Blog>>(apiurl + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
 
         public async Task<Blog> GetBlogAsync(int BlogId, int ModuleId)
         {
-            return await http.GetJsonAsync<Blog>(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
+            return await GetJsonAsync<Blog>(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
 
         public async Task AddBlogAsync(Blog Blog)
         {
-            await http.PostJsonAsync(apiurl + "?entityid=" + Blog.ModuleId.ToString(), Blog);
+            await PostJsonAsync(apiurl + "?entityid=" + Blog.ModuleId.ToString(), Blog);
         }
 
         public async Task UpdateBlogAsync(Blog Blog)
         {
-            await http.PutJsonAsync(apiurl + "/" + Blog.BlogId.ToString() + "?entityid=" + Blog.ModuleId.ToString(), Blog);
+            await PutJsonAsync(apiurl + "/" + Blog.BlogId.ToString() + "?entityid=" + Blog.ModuleId.ToString(), Blog);
         }
 
         public async Task DeleteBlogAsync(int BlogId, int ModuleId)
         {
-            await http.DeleteAsync(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
+            await DeleteAsync(apiurl + "/" + BlogId.ToString() + "?moduleid=" + ModuleId.ToString() + "&entityid=" + ModuleId.ToString());
         }
     }
 }
