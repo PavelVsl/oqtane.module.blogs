@@ -8,7 +8,7 @@
       https://dotnet.myget.org/F/blazor-dev/api/v3/index.json;
     </RestoreAdditionalProjectSources>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-    <Version>0.0.6</Version>
+    <Version>0.9.0</Version>
     <Product>Oqtane.Module.Blogs</Product>
     <Authors>Shaun Walker</Authors>
     <Company>.NET Foundation</Company>
@@ -24,17 +24,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\00.00.01.sql" />
-    <None Remove="Scripts\Uninstall.sql" />
+    <EmbeddedResource Include="Scripts\Blog.0.9.0.sql" />
+    <EmbeddedResource Include="Scripts\Blog.Uninstall.sql" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Scripts\00.00.01.sql" />
-    <EmbeddedResource Include="Scripts\Uninstall.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0-preview3.20168.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.0-rc1.20223.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />

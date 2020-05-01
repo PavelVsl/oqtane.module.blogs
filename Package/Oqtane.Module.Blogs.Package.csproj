@@ -11,8 +11,15 @@
     <ProjectReference Include="..\Shared\Oqtane.Module.Blogs.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Client\Oqtane.Module.Blogs.Client.csproj" />
+    <ProjectReference Include="..\Server\Oqtane.Module.Blogs.Server.csproj" />
+    <ProjectReference Include="..\Shared\Oqtane.Module.Blogs.Shared.csproj" />
+  </ItemGroup>
+
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="IF $(ConfigurationName) == Release (&#xD;&#xA;  nuget.exe pack $(SolutionDir)Oqtane.Module.Blogs.nuspec &#xD;&#xA;  XCOPY &quot;*.nupkg&quot; &quot;C:\Users\Shaun.Walker\source\repos\sbwalker\oqtane.framework\Oqtane.Server\wwwroot\Modules&quot; /Y&#xD;&#xA;)" />
+    <Exec Command="IF $(ConfigurationName) == Debug (debug.cmd)" />
+    <Exec Command="IF $(ConfigurationName) == Release (release.cmd)" />
   </Target>
 
 </Project>
